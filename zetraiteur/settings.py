@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse, reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -41,8 +43,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'django_tables2',
+    'bootstrap4',
+    'crispy_forms',
 
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['django_seed', ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -92,7 +100,7 @@ else:
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'zetraiteur',
             'USER': 'postgres',
-            'PASSWORD': 'Simouche',
+            'PASSWORD': 'postgres',
             'HOST': 'localhost',
             'PORT': '5432',
             'CONN_MAX_AGE': 180000,
@@ -145,6 +153,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / 'statics'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
@@ -174,3 +186,9 @@ AXES_LOCK_OUT_BY_USER_OR_IP = True
 AXES_LOCK_OUT_BY_COMBINATION_USER_AND_IP = True
 AXES_LOCKOUT_TEMPLATE = None  # lockout template
 AXES_RESET_ON_SUCCESS = True
+
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_URL = reverse_lazy("mainapp:login")

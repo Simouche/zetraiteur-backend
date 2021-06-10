@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+<form id="create-food-form" action="{% if not url %}{% url 'mainapp:food-create' %}{% else %}{{ url }}{% endif %}"
+      method="POST" enctype="multipart/form-data" class="p-1">
+    {% csrf_token %}
+    {% trans 'Create Food' as title %}
+    {% include "dashboard/fragments/modal_title.html" with title=title %}
+    {{ form|crispy }}
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"> {% trans 'Cancel' %}</button>
+        <button type="submit" class="btn btn-primary"
+                onclick="$('#create-food-form').submit()">{% if not url %}
+            {% trans 'Create' %}
+        {% else %}
+            {% trans 'Update' %}
+        {% endif %}  </button>
+    </div>
+</form>
+

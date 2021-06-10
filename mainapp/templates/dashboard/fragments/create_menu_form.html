@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+<form id="create-menu-form" action="{% if not url %}{% url 'mainapp:menu-create' %}{% else %}{{ url }}{% endif %}"
+      method="POST" enctype="multipart/form-data" class="p-1">
+    {% csrf_token %}
+    {% trans 'Create Menu' as title %}
+    {% include "dashboard/fragments/modal_title.html" with title=title %}
+    {{ form|crispy }}
+    <h3>{% trans 'Sections' %}</h3>
+    {% crispy formset helper %}
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"> {% trans 'Cancel' %}</button>
+        <button type="submit" class="btn btn-primary"
+                onclick="$('#create-menu-form').submit()">{% if not url %}
+            {% trans 'Create' %}
+        {% else %}
+            {% trans 'Update' %}
+        {% endif %}  </button>
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    $('tr').formset({
+        addText: '<i class="fas fa-plus" style="color: #0b0b0b"></i> <span style="color: #0b0b0b">{% trans 'Add' %}</span>',
+        deleteText: '<i class="fas fa-trash" style="color: #0b0b0b"></i>',
+        prefix: '{{ formset.prefix }}'
+    })
+</script>

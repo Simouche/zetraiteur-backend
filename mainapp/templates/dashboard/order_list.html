@@ -1,0 +1,46 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% block content %}
+    <h3 class="title-5 m-b-35">{% trans "Orders" %}</h3>
+    <div class="table-data__tool">
+        <div class="table-data__tool-left">
+            {% if filter %}
+                <form action="" method="get" class="form form-inline">
+                    {% bootstrap_form filter.form layout='inline' %}
+                    {% bootstrap_button 'filter' %}
+                </form>
+            {% endif %}
+        </div>
+        <div class="table-data__tool-right">
+        </div>
+    </div>
+    <div class="table-responsive table--no-card m-b-30">
+        {% render_table table %}
+    </div>
+{% endblock content %}
+
+{% block modals %}
+    <div class="modal fade" tabindex="-1" role="dialog" id="show-order-modal"
+         aria-labelledby="scrollmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content pb-5"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="delete-order-modal"
+         aria-labelledby="scrollmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content pb-5"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/zetraiteur/orders.js' %}"></script>
+    <script type="text/javascript">
+
+    </script>
+{% endblock %}

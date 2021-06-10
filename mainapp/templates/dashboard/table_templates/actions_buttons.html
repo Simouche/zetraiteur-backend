@@ -1,0 +1,10 @@
+{% load i18n %}
+<div class="table-data-feature">
+    <button data-id="{{ record.pk }}"
+            class="item info-btn" data-toggle="tooltip" data-placement="top" title="{% trans "Info" %}">
+        <i class="fa fa-info"></i>
+    </button>
+
+    <button data-id="{{ record.pk }}" data-toggle="tooltip" title="{% trans "Delete" %}"
+            class="item delete-btn"><i class="fa fa-trash"></i></button>
+</div>
