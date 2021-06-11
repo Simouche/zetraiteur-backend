@@ -21,6 +21,7 @@ class LoginApi(APIView):
             if client.exists():
                 serialized_client = ClientSerializer(client.first(), context=self.get_serializer_context())
                 return Response(data=serialized_client.data)
+            return Response({"error": "no such user"})
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
