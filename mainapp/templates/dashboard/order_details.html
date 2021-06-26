@@ -1,6 +1,60 @@
 {% extends 'dashboard/base.html' %}
+{% load i18n %}
 
 
 {% block content %}
+    <h3 class="title-5 m-b-35">{% trans "Order Details" %}</h3>
+    <div class="ml-4">
+        <h4>{% trans 'Order Number' %}: {{ order.number }}</h4>
+        <hr>
+        <h4>{% trans 'Date' %}: {{ order.created_at }}</h4>
+        <hr>
+        <div class="row flex-row">
+            <h4 class="col-md-4 col-sm-4 col-12">{% trans 'Status' %}: {{ order.get_status_display }}</h4>
+            <select name="status" id="status-select" class="col-md-4 col-sm-4 col-12">
+                <option value="test">test</option>
+                <option value="test">test</option>
+                <option value="test">test</option>
+            </select>
+        </div>
+        <hr>
+        <h4>{% trans 'Client' %}: {{ order.client }}</h4>
+        <hr>
+        <h4>{% trans 'phone' %}: {{ order.get_phone }}</h4>
+        <hr>
+        <h4>{% trans 'address' %}: {{ order.get_address }}</h4>
+        <hr>
+        <h4>{% trans 'cost' %}: {{ order.cost }}</h4>
+    </div>
+    <div class="mb-3"></div>
+    <div class="table-responsive table--no-card m-b-30">
+        <table class="table table-borderless table-striped table-earning">
+            <thead>
+            <tr>
+                <th>{% trans 'Menu' %}</th>
+                <th>{% trans 'Main' %}</th>
+                <th>{% trans 'Extra' %}</th>
+                <th>{% trans 'Quantity' %}</th>
+                <th>{% trans 'total' %}</th>
+            </tr>
+            </thead>
+            {% for line in order.lines.all %}
+                <tr>
+                    <td>{{ line.composition.menu }}</td>
+                    <td>{% for food in line.composition.selected_foods.all %}
+                        {{ food }},
+                    {% endfor %}
+                    </td>
+                    <td>
+                        {% for extra in line.composition.extras.all %}
+                            {{ extra }},
+                        {% endfor %}
+                    </td>
+                    <td>{{ line.quantity }}</td>
+                    <td>{{ line.total }}</td>
+                </tr>
+            {% endfor %}
 
+        </table>
+    </div>
 {% endblock %}
