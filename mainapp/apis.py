@@ -7,9 +7,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from mainapp.models import PhoneNumber, Address, Client, Menu, Food, Extra, Composition, OrderLine, Order
+from mainapp.filters import MenuFilter, FoodFilter, ExtraFilter
+from mainapp.models import PhoneNumber, Address, Client, Menu, Food, Extra, Composition, OrderLine, Order, City
 from mainapp.serializers import PhoneSerializer, AddressSerializer, ClientSerializer, MenuSerializer, FoodSerializer, \
-    ExtraSerializer, CompositionSerializer, OrderLineSerializer, OrderSerializer
+    ExtraSerializer, CompositionSerializer, OrderLineSerializer, OrderSerializer, CitySerializer
 
 
 class LoginApi(APIView):
@@ -60,19 +61,19 @@ class ClientViewSet(ModelViewSet):
 class MenuListView(ListAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    # filterset_class = MenuFilter
+    filterset_class = MenuFilter
 
 
 class FoodListView(ListAPIView):
     serializer_class = FoodSerializer
     queryset = Food.objects.all()
-    # filterset_class = FoodFilter
+    filterset_class = FoodFilter
 
 
 class ExtrasListView(ListAPIView):
     serializer_class = ExtraSerializer
     queryset = Extra.objects.all()
-    # filterset_class = ExtraFilter
+    filterset_class = ExtraFilter
 
 
 class CompositionViewSet(ModelViewSet):
@@ -91,3 +92,8 @@ class OrderViewSet(ModelViewSet):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
     # filterset_class = OrderFilter
+
+
+class CityListView(ListAPIView):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer

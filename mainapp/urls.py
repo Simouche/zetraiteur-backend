@@ -9,9 +9,6 @@ router = SimpleRouter()
 router.register("clients", apis.ClientViewSet, "apis-clients")
 router.register("clients/phones", apis.PhoneNumberViewSet, "apis-clients-phones")
 router.register("clients/addresses", apis.AddressViewSet, "apis-clients-addresses")
-# router.register("menus", apis.MenuViewSet, "apis-menus")
-# router.register("foods", apis.FoodViewSet, "apis-foods")
-# router.register("extras", apis.ExtraViewSet, "apis-extras")
 router.register("compositions", apis.CompositionViewSet, "apis-compositions")
 router.register("orders", apis.OrderViewSet, "apis-orders")
 router.register("orders/lines", apis.OrderLineViewSet, "apis-orders-lines")
@@ -53,5 +50,6 @@ urlpatterns = [
     path("apis/extras/", apis.ExtrasListView.as_view()),
     path("apis/menus/", apis.MenuListView.as_view()),
     path("apis/foods/", apis.FoodListView.as_view()),
+    path("apis/cities/", apis.CityListView.as_view()),
     path("apis/", include(router.urls))
 ]
